@@ -65,9 +65,12 @@ export default function AnalyticsPage() {
   const totalExpense = monthly.reduce((s, m) => s + (currency === "UZS" ? m.uzsExpense : m.usdExpense), 0);
   const savingsRate = totalIncome > 0 ? Math.round(((totalIncome - totalExpense) / totalIncome) * 100) : 0;
 
-  const formatValue = (v: number) => currency === "UZS"
-    ? `${(v / 1000000).toFixed(1)}M`
-    : `$${v.toLocaleString()}`;
+  function formatValue(v: unknown) {
+  const num = Number(v) || 0;
+  return currency === "UZS"
+    ? `${(num / 1000000).toFixed(1)}M`
+    : `$${num.toLocaleString()}`;
+}
 
   if (loading) {
     return (
@@ -168,7 +171,7 @@ export default function AnalyticsPage() {
             <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
             <YAxis tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} tickFormatter={formatValue} />
             <Tooltip
-              formatter={(value) => [formatValue(Number(value))]}
+              formatter={(value) => [formatValue(value)]}
               contentStyle={{ borderRadius: "0.75rem", border: "1px solid #e2e8f0", fontSize: "0.8rem" }}
             />
             <Area type="monotone" dataKey="Kirim" stroke="#10b981" strokeWidth={2} fill="url(#colorKirim)" />
@@ -196,7 +199,7 @@ export default function AnalyticsPage() {
               <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 10, fill: "#94a3b8" }} axisLine={false} tickLine={false} tickFormatter={formatValue} />
               <Tooltip
-                formatter={(value: number) => [formatValue(value)]}
+                formatter={(value) => [formatValue(value)]}
                 contentStyle={{ borderRadius: "0.75rem", border: "1px solid #e2e8f0", fontSize: "0.75rem" }}
               />
               <Bar dataKey="Balans" radius={[4, 4, 0, 0]}>
@@ -239,7 +242,7 @@ export default function AnalyticsPage() {
                   ))}
                 </Pie>
                 <Tooltip
-                  formatter={(value: number) => [formatValue(value)]}
+                  formatter={(value) => [formatValue(value)]}
                   contentStyle={{ borderRadius: "0.75rem", border: "1px solid #e2e8f0", fontSize: "0.75rem" }}
                 />
               </PieChart>
