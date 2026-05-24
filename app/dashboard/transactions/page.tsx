@@ -59,7 +59,7 @@ export default function TransactionsPage() {
   }, [month, year]);
 
   useEffect(() => {
-    fetchTransactionsns();
+    fetchTransactions();
   }, [fetchTransactions]);
 
   const handleOpen = (tx?: Transaction) => {
