@@ -168,7 +168,7 @@ export default function AnalyticsPage() {
             <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} />
             <YAxis tick={{ fontSize: 11, fill: "#94a3b8" }} axisLine={false} tickLine={false} tickFormatter={formatValue} />
             <Tooltip
-              formatter={(value: number) => [formatValue(value)]}
+              formatter={(value) => [formatValue(Number(value))]}
               contentStyle={{ borderRadius: "0.75rem", border: "1px solid #e2e8f0", fontSize: "0.8rem" }}
             />
             <Area type="monotone" dataKey="Kirim" stroke="#10b981" strokeWidth={2} fill="url(#colorKirim)" />
